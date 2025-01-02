@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Desi Tadka - Restaurant Website</title>
+    <style>
+        body {
+            font-family: 'Georgia', serif; /* Set font style to Georgia */
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #b18080, #e87272); /* Metallic gradient */
+            background-size: 200% 200%; /* For animation effect */
+            animation: metallicAnimation 5s ease infinite; /* Animation for metallic effect */
+            color: black; /* Set default text color to black */
+        }
+
+        @keyframes metallicAnimation {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        header {
+            background-color: rgba(246, 210, 210, 0.8); /* Semi-transparent header */
+            color: rgb(0, 0, 0); /* Keep header text black for contrast */
+            padding: 10px 0;
+            text-align: center;
+        }
+
+        .lightning {
+            display: inline-block;
+            animation: lightning 1s infinite;
+            filter: brightness(0.7); /* Reduce brightness */
+        }
+
+        @keyframes lightning {
+            0% { text-shadow: 0 0 5px white, 0 0 10px lightblue, 0 0 15px yellow; }
+            25% { text-shadow: 0 0 20px lightblue, 0 0 30px yellow, 0 0 40px orange; }
+            50% { text-shadow: 0 0 5px white, 0 0 10px lightblue, 0 0 15px yellow; }
+            75% { text-shadow: 0 0 20px lightblue, 0 0 30px yellow, 0 0 40px orange; }
+            100% { text-shadow: 0 0 5px white, 0 0 10px lightblue, 0 0 15px yellow; }
+        }
+
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        nav ul li {
+            display: inline;
+            margin: 0 15px;
+        }
+
+        nav ul li a {
+            color: black; /* Set link color to black */
+            text-decoration: none;
+        }
+
+        main {
+            padding: 20px;
+            color: black; /* Change text color for better visibility */
+        }
+
+        footer {
+            text-align: center;
+            padding: 10px 0;
+            background-color: #333;
+            color: white; /* Keep footer text white for contrast */
+            position: relative;
+            bottom: 0;
+            width: 100%;
+        }
+
+        .page {
+            display: none;
+        }
+
+        .active {
+            display: block;
+        }
+
+        /* Menu Styles */
+        .menu {
+            margin: 20px 0;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.9); /* Light background for menu */
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .menu h3 {
+            margin-top: 20px;
+            font-size: 24px; /* Increase font size for headings */
+            color: #b18080; /* Color for headings */
+        }
+
+        .menu ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .menu ul li {
+            margin: 10px 0;
+            font-size: 18px; /* Font size for menu items */
+            display: flex;
+            justify-content: space-between; /* Align price to the right */
+            align-items: center; /* Center items vertically */
+        }
+
+        .menu ul li button {
+            margin-left: 10px; /* Space between item and button */
+            background-color: #4caf50; /* Button color */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            padding: 5px 10px;
+        }
+
+        .menu ul li button:hover {
+            background-color: #45a049; /* Darker shade on hover */
+        }
+
+        /* Dashboard Styles */
+        .dashboard {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            margin: 20px 0;
+        }
+
+        .card {
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 10px;
+            width: 300px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .card h3 {
+            margin-top: 0;
+        }
+
+        /* Testimonials Styles */
+        .testimonials {
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+
+        .testimonial {
+            margin: 10px 0;
+            font-style: italic;
+        }
+
+        /* Wheel Styles */
+        .wheel-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 20px 0;
+        }
+
+        .wheel {
+            width: 200px;
+            height: 200px;
+            border: 16px solid #ff5722; /* Wheel border color */
+            border-radius: 50%;
+            position: relative;
+            overflow: hidden;
+            transition: transform 4s cubic-bezier(0.33, 1, 0.68, 1);
+        }
+
+        .wheel .slice {
+            position: absolute;
+            width: 50%;
+            height: 50%;
+            background: #ff5722; /* Slice color */
+            transform-origin: 100% 100%;
+        }
+
+        .wheel .slice:nth-child(1) { transform: rotate(0deg); }
+        .wheel .slice:nth-child(2) { transform: rotate(60deg); }
+        .wheel .slice:nth-child(3) { transform: rotate(120deg); }
+        .wheel .slice:nth-child(4) { transform: rotate(180deg); }
+        .wheel .slice:nth-child(5) { transform: rotate(240deg); }
+        .wheel .slice:nth-child(6) { transform: rotate(300deg); }
+
+        .spin-button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #4caf50; /* Spin button color */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        
+
+        /* Location Styles */
+        .location {
+            width: 100%;
+            height: 400px; /* Set height for the map */
+            margin-top: 20px;
+            border: none; /* Remove border */
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1 class="lightning">Welcome to Desi Tadka</h1>
+        <nav>
+            <ul>
+                <li><a href="#" onclick="showPage('home')">Home</a></li>
+                <li><a href="#" onclick="showPage('menu')">Menu</a></li>
+                <li><a href="#" onclick="showPage('about')">About Us</a></li>
+                <li><a href="#" onclick="showPage('gallery')">Gallery</a></li>
+                <li><a href="#" onclick="showPage('testimonials')">Testimonials</a></li>
+                <li><a href="#" onclick="showPage('reservation')">Reservation</a></li>
+                <li><a href="#" onclick="showPage('payment')">Payment</a></li>
+                <li><a href="#" onclick="showPage('contact')">Contact</a></li>
+                <li><a href="#" onclick="showPage('cart')">Cart</a></li> <!-- Cart link -->
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <div id="home" class="page active">
+            <h2 class="welcome-message">Welcome to Desi Tadka!</h2>
+            <p>Experience the rich flavors of Indian cuisine in a warm and inviting atmosphere. Our chefs use only the freshest ingredients to create authentic dishes that will tantalize your taste buds.</p>
+            <div class="featured-dishes">
+                <h3>Featured Dishes</h3>
+                <ul>
+                    <li>Butter Chicken - A creamy and flavorful dish served with naan.</li>
+                    <li>Paneer Tikka - Grilled paneer marinated in spices, served with mint chutney.</li>
+                    <li>Biryani - Aromatic rice dish cooked with spices and your choice of meat or vegetables.</li>
+                </ul>
+            </div>
+            <div class="dashboard">
+                <div class="card">
+                    <h3>Special Dish of the Day</h3>
+                    <p>Try our Grilled Salmon with a side of seasonal vegetables!</p>
+                </div>
+                <div class="card">
+                    <h3>Happy Hour</h3>
+                    <p>Join us for Happy Hour from 5 PM to 7 PM for special discounts!</p>
+                </div>
+                <div class="card">
+                    <h3>Live Music</h3>
+                    <p>Enjoy live music every Friday night starting at 8 PM!</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="menu" class="page">
+            <h2>Our Indian Menu</h2>
+            <div class="menu">
+                <h3>Starters</h3>
+                <ul>
+                    <li>Samosa - ₹50 <button onclick="addToCart('Samosa', 50)">Add to Cart</button></li>
+                    <li>Paneer Tikka - ₹150 <button onclick="addToCart('Paneer Tikka', 150)">Add to Cart</button></li>
+                    <li>Vegetable Pakora - ₹80 <button onclick="addToCart('Vegetable Pakora', 80)">Add to Cart</button></li>
+                    <li>Onion Bhaji - ₹50 <button onclick="addToCart('Onion Bhaji', 50)">Add to Cart</button></li>
+                    <li>Chili Chicken - ₹200 <button onclick="addToCart('Chili Chicken', 200)">Add to Cart</button></li>
+                    <li>Hakka Noodles - ₹120 <button onclick="addToCart('Hakka Noodles', 120)">Add to Cart</button></li>
+                </ul>
+                <h3>Main Courses</h3>
+                <ul>
+                    <li>Butter Chicken - ₹350 <button onclick="addToCart('Butter Chicken', 350)">Add to Cart</button></li>
+                    <li>Palak Paneer - ₹300 <button onclick="addToCart('Palak Paneer', 300)">Add to Cart</button></li>
+                    <li>Biryani (Chicken/Veg) - ₹250 <button onclick="addToCart('Biryani', 250)">Add to Cart</button></li>
+                    <li>Dal Makhani - ₹200 <button onclick="addToCart('Dal Makhani', 200)">Add to Cart</button></li>
+                    <li>Chicken Tikka Masala - ₹400 <button onclick="addToCart('Chicken Tikka Masala', 400)">Add to Cart</button></li>
+                    <li>Paneer Butter Masala - ₹350 <button onclick="addToCart('Paneer Butter Masala', 350)">Add to Cart</button></li>
+                    <li>Rogan Josh - ₹450 <button onclick="addToCart('Rogan Josh', 450)">Add to Cart</button></li>
+                </ul>
+                <h3>Desserts</h3>
+                <ul>
+                    <li>Gulab Jamun - ₹80 <button onclick="addToCart('Gulab Jamun', 80)">Add to Cart</button></li>
+                    <li>Ras Malai - ₹100 <button onclick="addToCart('Ras Malai', 100)">Add to Cart</button></li>
+                    <li>Kheer - ₹70 <button onclick="addToCart('Kheer', 70)">Add to Cart</button></li>
+                    <li>Jalebi - ₹50 <button onclick="addToCart('Jalebi', 50)">Add to Cart</button></li>
+                    <li>Gajar Ka Halwa - ₹80 <button onclick="addToCart('Gajar Ka Halwa', 80)">Add to Cart</button></li>
+                </ul>
+            </div>
+
+            <h2>Our Chinese Menu</h2>
+            <div class="menu">
+                <h3>Starters</h3>
+                <ul>
+                    <li>Spring Rolls - ₹100 <button onclick="addToCart('Spring Rolls', 100)">Add to Cart</button></li>
+                    <li>Vegetable Manchurian - ₹120 <button onclick="addToCart('Vegetable Manchurian', 120)">Add to Cart</button></li>
+                    <li>Chicken Wings - ₹150 <button onclick="addToCart('Chicken Wings', 150)">Add to Cart</button></li>
+                    <li>Chili Paneer - ₹180 <button onclick="addToCart('Chili Paneer', 180)">Add to Cart</button></li>
+                    <li>Hakka Noodles - ₹130 <button onclick="addToCart('Hakka Noodles', 130)">Add to Cart</button></li>
+                </ul>
+                <h3>Main Courses</h3>
+                <ul>
+                    <li>Vegetable Fried Rice - ₹150 <button onclick="addToCart('Vegetable Fried Rice', 150)">Add to Cart</button></li>
+                    <li>Chicken Fried Rice - ₹200 <button onclick="addToCart('Chicken Fried Rice', 200)">Add to Cart</button></li>
+                    <li>Sweet and Sour Chicken - ₹250 <button onclick="addToCart('Sweet and Sour Chicken', 250)">Add to Cart</button></li>
+                    <li>Kung Pao Chicken - ₹300 <button onclick="addToCart('Kung Pao Chicken', 300)">Add to Cart</button></li>
+                    <li>Vegetable Chow Mein - ₹180 <button onclick="addToCart('Vegetable Chow Mein', 180)">Add to Cart</button></li>
+                </ul>
+            </div>
+
+            <h2>Soft Drinks</h2>
+            <div class="menu">
+                <ul>
+                    <li>Fruit Punch - ₹250 <button onclick="addToCart('Fruit Punch', 50)">Add to Cart</button></li>
+                    <li>Lemonade - ₹40 <button onclick="addToCart('Lemonade', 40)">Add to Cart</button></li>
+                    <li>Masala Chai - ₹30 <button onclick="addToCart('Masala Chai', 30)">Add to Cart</button></li>
+                    <li>Mint Mojito - ₹60 <button onclick="addToCart('Mint Mojito', 60)">Add to Cart</button></li>
+                    <li>Soft Drink (Coke/Pepsi) - ₹40 <button onclick="addToCart('Soft Drink', 40)">Add to Cart</button></li>
+                    <li>Thums Up - ₹40 <button onclick="addToCart('Thums Up', 40)">Add to Cart</button></li>
+                    <li>Sprite - ₹40 <button onclick="addToCart('Sprite', 40)">Add to Cart</button></li>
+                    <li>Fanta - ₹40 <button onclick="addToCart('Fanta', 40)">Add to Cart</button></li>
+                    <li>Water Bottle - ₹20 <button onclick="addToCart('Water Bottle', 20)">Add to Cart</button></li>
+                    <li>Cold Coffee - ₹80 <button onclick="addToCart('Cold Coffee', 80)">Add to Cart</button></li>
+                </ul>
+            </div>
+
+            <h3>Our South Indian Menu</h3>
+            <div class="menu">
+                <h3>Starters</h3>
+                <ul>
+                    <li>Idli - ₹40 <button onclick="addToCart('Idli', 40)">Add to Cart</button></li>
+                    <li>Medu Vada - ₹50 <button onclick="addToCart('Medu Vada', 50)">Add to Cart</button></li>
+                    <li>Masala Dosa - ₹80 <button onclick="addToCart('Masala Dosa', 80)">Add to Cart</button></li>
+                    <li>Onion Uttapam - ₹70 <button onclick="addToCart('Onion Uttapam', 70)">Add to Cart</button></li>
+                    <li>Vegetable Sambar - ₹60 <button onclick="addToCart('Vegetable Sambar', 60)">Add to Cart</button></li>
+                </ul>
+                <h3>Main Courses</h3>
+                <ul>
+                    <li>Plain Dosa - ₹70 <button onclick="addToCart('Plain Dosa', 70)">Add to Cart</button></li>
+                    <li>Chicken Chettinad - ₹350 <button onclick="addToCart('Chicken Chettinad', 350)">Add to Cart</button></li>
+                    <li>Fish Curry - ₹400 <button onclick="addToCart('Fish Curry', 400)">Add to Cart</button></li>
+                    <li>Vegetable Biryani - ₹250 <button onclick="addToCart('Vegetable Biryani', 250)">Add to Cart</button></li>
+                    <li>Rasam - ₹50 <button onclick="addToCart('Rasam', 50)">Add to Cart</button></li>
+                </ul>
+                <h3>Desserts</h3>
+                <ul>
+                    <li>Payasam - ₹80 <button onclick="addToCart('Payasam', 80)">Add to Cart</button></li>
+                    <li>Rava Kesari - ₹70 <button onclick="addToCart('Rava Kesari', 70)">Add to Cart</button></li>
+                </ul>
+            </div>
+
+            <div class="wheel-container">
+                <h2>Spin the Wheel for a Special Dish!</h2>
+                <div class="wheel" id="wheel">
+                    <div class="slice" style="background: #ff5722;"></div>
+                    <div class="slice" style="background: #ff9800;"></div>
+                    <div class="slice" style="background: #ffc107;"></div>
+                    <div class="slice" style="background: #8bc34a;"></div>
+                    <div class="slice" style="background: #4caf50;"></div>
+                    <div class="slice" style="background: #2196f3;"></div>
+                </div>
+                <button class="spin-button" onclick="spinWheel()">Spin the Wheel!</button>
+                <h3 id="specialDish"></h3>
+            </div>
+        </div>
+
+        <div id="cart" class="page">
+            <h2>Your Cart</h2>
+            <div class="cart">
+                <h3>Items in Cart</h3>
+                <ul id="cartItems"></ul>
+                <h3>Total: ₹<span id="totalPrice">0</span></h3>
+                <button onclick="placeOrder()">Place Order</button>
+                <div id="bill" style="display:none;">
+                    <h3>Bill Summary</h3>
+                    <ul id="billItems"></ul>
+                    <h3>Total Amount: ₹<span id="billTotal">0</span></h3>
+                </div>
+            </div>
+        </div>
+
+        <div id="about" class="page">
+            <h2>About Us</h2>
+            <div class="dashboard">
+                <div class="card">
+                    <h3>Our Mission</h3>
+                    <p>To provide the best dining experience with fresh ingredients and exceptional service.</p>
+                </div>
+                <div class="card">
+                    <h3>Our Story</h3>
+                    <p>Founded in 2024, we have been serving delicious meals to our community.</p>
+                </div>
+                <div class="card">
+                    <h3>Our Team</h3>
+                    <p>Meet our dedicated team of chefs and staff who make it all happen!</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="gallery" class="page">
+            <h2>Gallery</h2>
+            <div class="gallery">
+                <img src="image1.jpg" alt="Dish 1">
+                <img src="image2.jpg" alt="Dish 2">
+                <img src="image3.jpg" alt="Dish 3">
+                <img src="image4.jpg" alt="Dish 4">
+            </div>
+        </div>
+
+        <div id="testimonials" class="page">
+            <h2>Testimonials</h2>
+            <div class="testimonials">
+                <div class="testimonial">"The food was amazing! Highly recommend!" - sweeta kadam</div>
+                <div class="testimonial">"Best dining experience I've ever had!" - sarang gole</div>
+                <div class="testimonial">"A hidden gem! Will definitely come back." - Antrishk manwadkar</div>
+            </div>
+        </div>
+
+        <div id="reservation" class="page">
+            <h2>Reservation</h2>
+            <div class="reservation-form">
+                <form id="reservationForm">
+                    <input type="text" placeholder="Your Name" required>
+                    <input type="email" placeholder="Your Email" required>
+                    <input type="date" placeholder="Date" required>
+                    <input type="time" placeholder="Time" required>
+                    <input type="number" placeholder="Number of Guests" required>
+                    <textarea placeholder="Special Requests" rows="4"></textarea>
+                    <button type="submit">Make a Reservation</button>
+                </form>
+            </div>
+        </div>
+
+        <div id="payment" class="page">
+            <div class="payment-section">
+                <h2>Payment Options</h2>
+                <h3>Scan to Pay</h3>
+                <img src="your-qr-code-url.png" alt="QR Code for Desi Tadka" class="qr-code"> <!-- Replace with your QR code image URL -->
+                <p>Use the QR code to pay via Google Pay, PhonePe, or Razorpay.</p>
+                <div class="payment-buttons">
+                    <a href="https://pay.google.com" class="payment-button">Google Pay</a>
+                    <a href="https://www.phonepe.com" class="payment-button phonepe">PhonePe</a>
+                    <a href="https://razorpay.com" class="payment-button razorpay">Razorpay</a>
+                </div>
+            </div>
+        </div>
+
+
+        <div id="contact" class="page">
+            <h2>Contact Us</h2>
+            <p>Email: saranggole9106@gmail.com</p>
+            <p>Phone: +91-7977893126</p>
+            <h3>Our Location</h3>
+            <iframe class="location" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3763.123456789012!2d72.8471063154341!3d19.076090287084!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7c8b0c0c0c0c0%3A0x0!2sDesi%20Tadka!5e0!3m2!1sen!2sin!4v1616161616161!5m2!1sen!2sin" allowfullscreen="" loading="lazy" style="width: 100%; height: 400px;"></iframe>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Desi Tadka</p>
+    </footer>
+
+    <script>
+        let cart = [];
+        let total = 0;
+
+        function showPage(pageId) {
+            const pages = document.querySelectorAll('.page');
+            pages.forEach(page => {
+                page.classList.remove('active');
+            });
+            document.getElementById(pageId).classList.add('active');
+        }
+
+        function addToCart(item, price) {
+            cart.push({ item, price });
+            total += price;
+            updateCart();
+        }
+
+        function updateCart() {
+            const cartItems = document.getElementById('cartItems');
+            cartItems.innerHTML = '';
+            cart.forEach(cartItem => {
+                const li = document.createElement('li');
+                li.textContent = `${cartItem.item} - ₹${cartItem.price}`;
+                cartItems.appendChild(li);
+            });
+            document.getElementById('totalPrice').textContent = total.toFixed(2);
+        }
+
+        function placeOrder() {
+            if (cart.length === 0) {
+                alert('Your cart is empty!');
+                return;
+            }
+            // Display the bill
+            const billItems = document.getElementById('billItems');
+            billItems.innerHTML = '';
+            cart.forEach(cartItem => {
+                const li = document.createElement('li');
+                li.textContent = `${cartItem.item} - ₹${cartItem.price}`;
+                billItems.appendChild(li);
+            });
+            document.getElementById('billTotal').textContent = total.toFixed(2);
+            document.getElementById('bill').style.display = 'block'; // Show the bill section
+
+            alert('Order placed successfully!');
+            cart = [];
+            total = 0;
+            updateCart();
+        }
+
+        function spinWheel() {
+            const wheel = document.getElementById('wheel');
+            const randomDegree = Math.floor(Math.random() * 360 + 720); // Spin at least 2 full rotations
+            wheel.style.transform = `rotate(${randomDegree}deg)`;
+
+            // Determine the special dish based on the random degree
+            setTimeout(() => {
+                const specialDish = getSpecialDish(randomDegree % 360);
+                document.getElementById('specialDish').textContent = `Special Dish: ${specialDish}`;
+            }, 4000); // Wait for the spin animation to finish
+        }
+
+        function getSpecialDish(degree) {
+            if (degree < 60) return "Paneer Tikka";
+            else if (degree < 120) return "Butter Chicken";
+            else if (degree < 180) return "Samosa";
+            else if (degree < 240) return "Dal Makhani";
+            else if (degree < 300) return "Gulab Jamun";
+            else return "Rogan Josh";
+        }
+
+        // Handle reservation form submission
+        document.getElementById('reservationForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            alert('Reservation made successfully!');
+            this.reset(); // Reset the form
+        });
+    </script>
+</body>
+</html>
